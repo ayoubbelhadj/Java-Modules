@@ -1,3 +1,4 @@
+package Java00.ex02;
 import java.util.Scanner;
 public class Program {
 	public static int sum(int nbr) {
