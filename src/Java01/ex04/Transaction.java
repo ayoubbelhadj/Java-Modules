@@ -6,6 +6,8 @@ public class Transaction {
     private String Identifier;
     private User Sender;
     private User Recipient;
+    private TransferCategory Category;
+    private double Amount;
     public enum  TransferCategory{
         DEBIT,
         CREDIT
@@ -15,15 +17,24 @@ public class Transaction {
         return Identifier;
     }
 
-    private TransferCategory Category;
-    private Integer Amount;
+    public User getSender() {
+        return Sender;
+    }
 
-    public Integer getAmount() {
+    public User getRecipient() {
+        return Recipient;
+    }
+
+    public TransferCategory getCategory() {
+        return Category;
+    }
+
+    public double getAmount() {
         return Amount;
     }
 
-    public Transaction(User sender, User recipient, TransferCategory category, Integer amount){
-        this.Identifier = UUID.randomUUID().toString();
+    public Transaction(String id, User sender, User recipient, TransferCategory category, double amount){
+        this.Identifier = id;
         this.Sender = sender;
         this.Recipient = recipient;
         this.Category = category;

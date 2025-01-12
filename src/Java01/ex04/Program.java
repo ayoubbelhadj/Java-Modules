@@ -1,35 +1,47 @@
 package Java01.ex04;
 
-import static Java01.ex04.Transaction.TransferCategory.DEBIT;
-
-public class Program {
+class Program {
     public static void main(String[] args) {
+        TransactionsService service = new TransactionsService();
+
+        // Add users
+        service.addUser("Ayoub", 1000.0);
+        service.addUser("Radwa", 500.0);
+
+        // Make a transfer
         try {
-            User user = new User("Ayoub", 1000);
+            // Print balances
+            System.out.println("Ayoub's balance: " + service.getBalance(1));
+            System.out.println("Radwa's balance: " + service.getBalance(2));
 
-            // Create and add transactions
-            Transaction t1 = new Transaction(user, new User("Radwa", 500),
-                    DEBIT, -100);
-            Transaction t2 = new Transaction( user, new User("Houmam", 800),
-                    DEBIT, -200);
-
-            user.getTransactions().addTransaction(t1);
-            user.getTransactions().addTransaction(t2);
-
-            TransactionNode tmp = user.getTransactions().getHead();
+            service.executeTransaction(1, 2, 300.0);
+            System.out.println("\nTransfer successful! Ayoub send 300 DH to Radwa.");
+            service.executeTransaction(2, 1, 500.0);
+            System.out.println("Transfer successful! Radwa send 500 DH to Ayoub.");
+            service.executeTransaction(1, 2, 600.0);
+            System.out.println("Transfer successful! Ayoub send 600 DH to Radwa.");
 
 
-            // Print all transactions
-            Transaction[] transactions = user.getTransactions().toArray();
-            for (Transaction t : transactions) {
-                System.out.println("Transaction: " + t.getIdentifier() + ", Amount: " + t.getAmount());
+
+            // Print transactions
+            System.out.println("\nAyoub's transactions:");
+            Transaction[] ayoubTransactions = service.getUserTransactions(1);
+            for (Transaction t : ayoubTransactions) {
+                System.out.println("Amount: " + t.getAmount() + ", Type: " + t.getCategory());
             }
+            // Print transactions
+            System.out.println("\nRadwa's transactions:");
+            Transaction[] radwaTransactions = service.getUserTransactions(2);
+            for (Transaction t : radwaTransactions) {
+                System.out.println("Amount: " + t.getAmount() + ", Type: " + t.getCategory());
+            }
+            // Print balances
+            System.out.println("\nCheck balance:");
+            System.out.println("Ayoub's balance: " + service.getBalance(1));
+            System.out.println("Radwa's balance: " + service.getBalance(2));
 
-            // Remove transaction
-            user.getTransactions().removeTransactionById("uuid1");
-
-        } catch (TransactionNotFoundException e) {
-            System.out.println("Error: " + e.getMessage());
+        } catch (IllegalTransactionException e) {
+            System.out.println("Transfer failed: " + e.getMessage());
         }
     }
 }
