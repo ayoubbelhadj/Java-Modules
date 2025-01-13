@@ -51,7 +51,7 @@ public class TransactionsService {
 	public Transaction[] validityTransactionsCheck(){
 		TransactionsList unpairedTransactions = new TransactionsLinkedList();
 		for (int i = 0; i < this.usersList.getNumberOfUsers(); i++) {
-			User currentUser = this.usersList.getUserById(i);
+			User currentUser = this.usersList.getUserById(i + 1);
 			Transaction[] allTransaction = currentUser.getTransactions().toArray();
 			for (Transaction transaction : allTransaction){
 				User otherUser = transaction.getSender();
