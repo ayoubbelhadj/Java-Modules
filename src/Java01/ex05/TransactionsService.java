@@ -5,22 +5,26 @@ import java.util.UUID;
 public class TransactionsService {
 	private UsersList usersList;
 
+	public UsersList getUsersList() {
+		return usersList;
+	}
+
 	public TransactionsService(){
 		this.usersList = new UsersArrayList();
 	}
 
-	public User addUser(String userName, double balance){
+	public User addUser(String userName, Integer balance){
 		User newUser = new User(userName, balance);
 		this.usersList.AddUser(newUser);
 		return newUser;
 	}
 
-	public double getBalance(int id){
+	public Integer getBalance(int id){
 		User user = this.usersList.getUserById(id);
 		return user.getBalance();
 	}
 
-	public void executeTransaction(int sender, int recipient, double amount){
+	public void executeTransaction(int sender, int recipient, Integer amount){
 		User user1 = usersList.getUserById(sender);
 		User user2 = usersList.getUserById(recipient);
 
@@ -53,7 +57,7 @@ public class TransactionsService {
 	public Transaction[] validityTransactionsCheck(){
 		TransactionsList unpairedTransactions = new TransactionsLinkedList();
 		for (int i = 0; i < this.usersList.getNumberOfUsers(); i++) {
-			User currentUser = this.usersList.getUserById(i);
+			User currentUser = this.usersList.getUserById(i + 1);
 			Transaction[] allTransaction = currentUser.getTransactions().toArray();
 			for (Transaction transaction : allTransaction){
 				User otherUser = transaction.getSender();

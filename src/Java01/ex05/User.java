@@ -3,10 +3,10 @@ package Java01.ex05;
 public class User {
     private final Integer Identifier;
     private String  Name;
-    private double Balance;
+    private Integer Balance;
     private TransactionsLinkedList transactions;
 
-    public User(String name, double balance){
+    public User(String name, Integer balance){
         if (balance < 0)
             throw new IllegalArgumentException("Balance can't be negative.");
         this.Identifier = UserIdsGenerator.getInstance().generateId();
@@ -19,7 +19,7 @@ public class User {
         return transactions;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Integer balance) {
         Balance = balance;
     }
 
@@ -29,7 +29,7 @@ public class User {
     public Integer getIdentifier(){
         return this.Identifier;
     }
-    public double getBalance(){
+    public Integer getBalance(){
         return this.Balance;
     }
 }

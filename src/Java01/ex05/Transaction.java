@@ -5,7 +5,7 @@ public class Transaction {
     private User Sender;
     private User Recipient;
     private TransferCategory Category;
-    private double Amount;
+    private Integer Amount;
     public enum  TransferCategory{
         DEBIT,
         CREDIT
@@ -27,11 +27,11 @@ public class Transaction {
         return Category;
     }
 
-    public double getAmount() {
+    public Integer getAmount() {
         return Amount;
     }
 
-    public Transaction(String id, User sender, User recipient, TransferCategory category, double amount){
+    public Transaction(String id, User sender, User recipient, TransferCategory category, Integer amount){
         this.Identifier = id;
         this.Sender = sender;
         this.Recipient = recipient;

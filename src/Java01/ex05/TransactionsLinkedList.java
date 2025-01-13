@@ -76,4 +76,19 @@ public class TransactionsLinkedList implements TransactionsList {
 		}
 		return transactionsArray;
 	}
+
+	public Transaction getTransactionById(String uuid) throws TransactionNotFoundException {
+		TransactionNode tmp = head;
+		Transaction t = null;
+		while (tmp != null){
+			if (tmp.data.getIdentifier().equals(uuid)){
+				t = tmp.data;
+				break;
+			}
+			tmp = tmp.next;
+		}
+		if (t == null)
+			throw new TransactionNotFoundException("Transaction: " + uuid + " not found.");
+		return t;
+	}
 }
